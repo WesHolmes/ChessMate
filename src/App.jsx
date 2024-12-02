@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+import Nav from "./Nav"
+import Article from "./Article"
+import ArticleEntry from "./ArticleEntry"
 import { SignIn, SignOut } from "./Auth"
 import { useAuthentication } from "../services/authService"
 import { fetchArticles, createArticle } from "../services/articleService"
@@ -31,27 +34,22 @@ export default function App() {
   }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Brawl Stats</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="App">
+      <header>
+        Blog
+        {user && <button onClick={() => setWriting(true)}>New Article</button>}
+        {!user ? <SignIn /> : <SignOut />}
+      </header>
+
+      {!user ? "" : <Nav articles={articles} setArticle={setArticle} />}
+
+      {!user ? (
+        ""
+      ) : writing ? (
+        <ArticleEntry addArticle={addArticle} />
+      ) : (
+        <Article article={article} />
+      )}
+    </div>
   )
 }
