@@ -6,6 +6,7 @@ export default function Search () {
     function submit(e) {
         e.preventDefault()
         console.log(term)
+        setTerm("")
     }
 
     return(
