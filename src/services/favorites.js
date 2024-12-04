@@ -1,11 +1,6 @@
 import { db, auth } from "../firebaseConfig";
 import { doc, setDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
 
-/**
- * Add a player to favorites.
- * @param {string} playerId - The player's ID.
- * @param {Object} playerData - Details of the player (e.g., name, rank).
- */
 export async function addFavoritePlayer(playerId, playerData) {
   const user = auth.currentUser;
   if (!user) {
@@ -16,10 +11,6 @@ export async function addFavoritePlayer(playerId, playerData) {
   await setDoc(playerRef, playerData);
 }
 
-/**
- * Remove a player from favorites.
- * @param {string} playerId - The player's ID.
- */
 export async function removeFavoritePlayer(playerId) {
   const user = auth.currentUser;
   if (!user) {
@@ -30,10 +21,6 @@ export async function removeFavoritePlayer(playerId) {
   await deleteDoc(playerRef);
 }
 
-/**
- * Get all favorite players for the signed-in user.
- * @returns {Array<Object>} - A list of favorite players.
- */
 export async function getFavoritePlayers() {
   const user = auth.currentUser;
   if (!user) {

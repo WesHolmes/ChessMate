@@ -24,20 +24,19 @@ export default function App() {
     }
   }, [searchTerm])
 
-  // Fetch favorite players for the authenticated user
   useEffect(() => {
     if (user) {
       getFavoritePlayers()
         .then(setFavorites)
         .catch((err) => console.error("Error fetching favorites:", err))
     } else {
-      setFavorites([]) // Clear favorites when user logs out
+      setFavorites([])
     }
   }, [user])
 
   const handleAddFavorite = (player) => {
-    const playerId = player.id; // Assuming the player object has an `id` property
-    const playerData = { name: player.name, rank: player.rank }; // Adjust fields as necessary
+    const playerId = player.id;
+    const playerData = { name: player.name, rank: player.rank };
 
     addFavoritePlayer(playerId, playerData)
       .then(() => {
@@ -46,7 +45,6 @@ export default function App() {
       .catch((err) => console.error("Error adding favorite:", err))
   }
 
-  // Remove a player from favorites
   const handleRemoveFavorite = (playerId) => {
     removeFavoritePlayer(playerId)
       .then(() => {
