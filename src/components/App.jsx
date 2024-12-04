@@ -1,27 +1,26 @@
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import Search from "./Search"
 import Results from "./Results"
 
-function App() {
+
+export default function App() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [chess, setChess] = useState("")
+  const [player, setPlayer] = useState("")
 
   useEffect(() => {
     const query = encodeURIComponent(searchTerm)
-    fetch(
-      'https://api.chess.com/pub/player/${query}'
-    ).then((response) => response.json())
+    fetch(`https://api.chess.com/pub/player/${query}`)
+    .then((response) => response.json())
     .then((data) => {
-      setChess(data.results)
+      setPlayer(data.results)
     })
-  }
+  }, [searchTerm])
   return (
     <>
-      <h1>Chess app</h1>
-      <Search/>
-      <Results/>
+      <h1>Chess App</h1>
+      <Search setter={setSearchTerm}/>
+      <Results player={player}/>
     </>
-  );
+  )
 }
-
-export default App
