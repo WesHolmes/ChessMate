@@ -1,7 +1,7 @@
-export default function Results() {
+export default function Results({ player }) {
     return (
         <div>
-            <h2>Results</h2>
+            <pre>{JSON.stringify(player, null, 2)}</pre>
         </div>
     )
 }
