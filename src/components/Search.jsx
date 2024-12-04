@@ -6,6 +6,7 @@ export default function Search({ setter }) {
   const [countryName, setCountryName] = useState("");
   const [dailyPuzzle, setDailyPuzzle] = useState(null);
   const [showPuzzle, setShowPuzzle] = useState(false);
+  const [playerName, setPlayerName] = useState(null);
 
   function submit(e) {
     e.preventDefault();
@@ -24,6 +25,8 @@ export default function Search({ setter }) {
         } else {
           setCountryName("Not provided");
         }
+        const fullURL = data.url
+        setPlayerName(fullURL.split('/').pop());
       } else {
         alert("Player not found");
         setPlayerData(null);
@@ -74,7 +77,7 @@ export default function Search({ setter }) {
   return (
     <div>
       <button onClick={handleShowPuzzle}>
-        {showPuzzle ? "Hide Daily Puzzle" : "Show Daily Puzzle"}
+        {showPuzzle ? "Hide Today's Puzzle" : "Show Today's Puzzle"}
       </button>
 
       {showPuzzle && dailyPuzzle && (
@@ -96,7 +99,7 @@ export default function Search({ setter }) {
 
       {playerData && (
         <div>
-          <h2>{playerData.username}</h2>
+          <h2>{playerName}</h2>
           <img src={playerData.avatar} alt={playerData.username} className="avatar" />
           <p>Title: {playerData.title || "No title"}</p>
           <p>Country: {countryName || "Not provided"}</p>
