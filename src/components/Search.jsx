@@ -80,7 +80,7 @@ export default function Search({ setter }) {
       {showPuzzle && dailyPuzzle && (
         <div>
           <h3>Today's Daily Puzzle</h3>
-          <p>Title: <a href={dailyPuzzle.url} target="_blank" rel="noopener noreferrer">{dailyPuzzle.title}</a></p>
+          <p>Title: <a href={dailyPuzzle.url} target="_blank" >{dailyPuzzle.title}</a></p>
           <img src={dailyPuzzle.image} alt="Daily Puzzle" className="daily-puzzle-image" />
         </div>
       )}
