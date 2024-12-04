@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import Search from "./Search"
 import Results from "./Results"
+import DailyPuzzle from "./DailyPuzzle"
 import { fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
 import { SignIn, SignOut } from './Auth'

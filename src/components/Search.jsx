@@ -7,10 +7,13 @@ export default function Search({ setter }) {
   const [dailyPuzzle, setDailyPuzzle] = useState(null);
   const [showPuzzle, setShowPuzzle] = useState(false);
   const [playerName, setPlayerName] = useState(null);
+  const [blitzRating, setBlitzRating] = useState(null);
+  const [bulletRating, setBulletRating] = useState(null);
 
   function submit(e) {
     e.preventDefault();
     fetchPlayerData(term);
+    fetchPlayerRating(term);
     setTerm("");
   }
 
@@ -74,6 +77,20 @@ export default function Search({ setter }) {
     }
   };
 
+  async function fetchPlayerRating(username) {
+    try {
+      const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
+      if (response.ok) {
+        const rating = await response.json();
+        setBlitzRating(rating.chess_blitz.last.rating);
+        setBulletRating(rating.chess_bullet.last.rating);
+      }
+    } catch (error) {
+      console.error("Error fetching player data:", error);
+      alert("Failed to fetch player data");
+    }
+  }
+
   return (
     <div>
       <button onClick={handleShowPuzzle}>
@@ -105,6 +122,8 @@ export default function Search({ setter }) {
           <p>Title: {playerData.title || "No title"}</p>
           <p>Country: {countryName || "Not provided"}</p>
           <p>Location: {playerData.location || "Not provided"}</p>
+          <p>Blitz Rating: {blitzRating}</p>
+          <p>Bullet Rating: {bulletRating}</p>
         </div>
       )}
     </div>
