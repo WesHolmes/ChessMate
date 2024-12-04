@@ -24,7 +24,6 @@ export default function App() {
 
       <div className="App">
         <header>
-          Chess
           {!user ? <SignIn /> : <SignOut />}
         </header>
       </div>

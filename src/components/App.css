@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 5%;
+  object-fit: cover;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
