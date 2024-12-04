@@ -96,6 +96,7 @@ export default function Search({ setter }) {
           onChange={(e) => setTerm(e.target.value)}
         />
       </form>
+      <h2>Search Results</h2>
 
       {playerData && (
         <div>
