@@ -1,5 +1,4 @@
 export default function Results({ players, onAddFavorite, favorites, onRemoveFavorite }) {
-    // Debugging: Display players and favorites in a readable format
     console.log("Players:", players);
     console.log("Favorites:", favorites);
   
