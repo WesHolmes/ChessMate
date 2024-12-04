@@ -25,20 +25,9 @@ export default function App() {
       <div className="App">
         <header>
           Chess
-          {user && <button onClick={() => setWriting(true)}>New Article</button>}
           {!user ? <SignIn /> : <SignOut />}
         </header>
-
-        {!user ? "" : <Nav articles={articles} setArticle={setArticle} />}
-
-        {!user ? (
-          ""
-        ) : writing ? (
-          <ArticleEntry addArticle={addArticle} />
-        ) : (
-          <Article article={article} />
-        )}
-        </div>
+      </div>
     </>
 
   )
