@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Search({ setter }) {
   const [term, setTerm] = useState("");
   const [playerData, setPlayerData] = useState(null);
   const [countryName, setCountryName] = useState("");
+  const [dailyPuzzle, setDailyPuzzle] = useState(null);
+  const [showPuzzle, setShowPuzzle] = useState(false);
 
   function submit(e) {
     e.preventDefault();
@@ -32,7 +34,6 @@ export default function Search({ setter }) {
     }
   }
 
-
   async function fetchCountryName(countryCode) {
     try {
       const response = await fetch(`${countryCode}`);
@@ -48,12 +49,46 @@ export default function Search({ setter }) {
     }
   }
 
+  async function fetchDailyPuzzle() {
+    try {
+      const response = await fetch("https://api.chess.com/pub/puzzle");
+      if (response.ok) {
+        const data = await response.json();
+        setDailyPuzzle(data);
+      }
+    } catch (error) {
+      console.error("Error fetching daily puzzle:", error);
+      setDailyPuzzle(null);
+    }
+  }
+
+  const handleShowPuzzle = () => {
+    if (showPuzzle) {
+      setShowPuzzle(false);
+    } else {
+      fetchDailyPuzzle();
+      setShowPuzzle(true);
+    }
+  };
+
   return (
     <div>
+      <button onClick={handleShowPuzzle}>
+        {showPuzzle ? "Hide Daily Puzzle" : "Show Daily Puzzle"}
+      </button>
+
+      {showPuzzle && dailyPuzzle && (
+        <div>
+          <h3>Today's Daily Puzzle</h3>
+          <p>Title: <a href={dailyPuzzle.url} target="_blank" rel="noopener noreferrer">{dailyPuzzle.title}</a></p>
+          <img src={dailyPuzzle.image} alt="Daily Puzzle" className="daily-puzzle-image" />
+        </div>
+      )}
+
       <form onSubmit={submit}>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search Player..."
           value={term}
           onChange={(e) => setTerm(e.target.value)}
         />
@@ -62,16 +97,10 @@ export default function Search({ setter }) {
       {playerData && (
         <div>
           <h2>{playerData.username}</h2>
-          <img src={playerData.avatar} alt={playerData.username} className="avatar"/>
+          <img src={playerData.avatar} alt={playerData.username} className="avatar" />
           <p>Title: {playerData.title || "No title"}</p>
           <p>Country: {countryName || "Not provided"}</p>
           <p>Location: {playerData.location || "Not provided"}</p>
-          {playerData.stats && (
-            <div>
-              <p>Puzzle Rating: {playerData.stats.puzzle ? playerData.stats.puzzle.rating : "Not available"}</p>
-              <p>Blitz Rating: {playerData.stats.blitz ? playerData.stats.blitz.rating : "Not available"}</p>
-            </div>
-          )}
         </div>
       )}
     </div>
