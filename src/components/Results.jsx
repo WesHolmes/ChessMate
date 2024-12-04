@@ -1,5 +1,4 @@
 export default function Results({ players, onAddFavorite, favorites, onRemoveFavorite }) {
-    // Debugging: Display players and favorites in a readable format
     console.log("Players:", players);
     console.log("Favorites:", favorites);
   
@@ -14,7 +13,7 @@ export default function Results({ players, onAddFavorite, favorites, onRemoveFav
                 {favorites.some((fav) => fav.id === player.id) ? (
                   <button onClick={() => onRemoveFavorite(player.id)}>Remove Favorite</button>
                 ) : (
-                  <button onClick={() => onAddFavorite(player)}>Add to Favorites</button>
+                  <button onClick={() => onAddFavorite(player.id)}>Add to Favorites</button>
                 )}
               </li>
             ))
