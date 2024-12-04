@@ -18,7 +18,7 @@ export default function Search({ setter }) {
         const data = await response.json();
         setPlayerData(data);
         if (data.country) {
-          fetchCountryName(data.country); // Pass only the country code (e.g., "US")
+          fetchCountryName(data.country);
         } else {
           setCountryName("Not provided");
         }
@@ -32,13 +32,13 @@ export default function Search({ setter }) {
     }
   }
 
-  // Fetch the full country name using the country code
+
   async function fetchCountryName(countryCode) {
     try {
-      const response = await fetch(`${countryCode}`); // Correct the URL here
+      const response = await fetch(`${countryCode}`);
       if (response.ok) {
         const data = await response.json();
-        setCountryName(data.name); // Set the full country name
+        setCountryName(data.name);
       } else {
         setCountryName("Unknown");
       }
@@ -66,7 +66,12 @@ export default function Search({ setter }) {
           <p>Title: {playerData.title || "No title"}</p>
           <p>Country: {countryName || "Not provided"}</p>
           <p>Location: {playerData.location || "Not provided"}</p>
-
+          {playerData.stats && (
+            <div>
+              <p>Puzzle Rating: {playerData.stats.puzzle ? playerData.stats.puzzle.rating : "Not available"}</p>
+              <p>Blitz Rating: {playerData.stats.blitz ? playerData.stats.blitz.rating : "Not available"}</p>
+            </div>
+          )}
         </div>
       )}
     </div>
