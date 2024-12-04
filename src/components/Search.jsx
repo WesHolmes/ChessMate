@@ -84,9 +84,6 @@ export default function Search({ setter }) {
         const rating = await response.json();
         setBlitzRating(rating.chess_blitz.last.rating);
         setBulletRating(rating.chess_bullet.last.rating);
-      } else {
-        alert("Rating not found");
-        setPlayerData(null);
       }
     } catch (error) {
       console.error("Error fetching player data:", error);
