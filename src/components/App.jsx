@@ -54,21 +54,21 @@ export default function App() {
   }
 
   return (
-    <>
-      <h1>Chess App</h1>
-      <Search setter={setSearchTerm} />
+    <div className="App">
+      <header>
+        <h1>ChessMate</h1>
+        {!user ? <SignIn /> : <SignOut />}
+      </header>
 
-      <Results 
-        players={players} 
-        onAddFavorite={handleAddFavorite} 
-        favorites={favorites} 
-        onRemoveFavorite={handleRemoveFavorite} 
-      />
+      <main className="main-content">
+        <Search setter={setSearchTerm} />
 
-      <div className="App">
-        <header>
-          {!user ? <SignIn /> : <SignOut />}
-        </header>
+        <Results 
+          players={players} 
+          onAddFavorite={handleAddFavorite} 
+          favorites={favorites} 
+          onRemoveFavorite={handleRemoveFavorite} 
+        />
 
         {user && (
           <>
@@ -83,7 +83,7 @@ export default function App() {
             </ul>
           </>
         )}
-      </div>
-    </>
+      </main>
+    </div>
   );
 }
