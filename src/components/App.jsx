@@ -3,11 +3,9 @@ import './App.css'
 import Search from "./Search"
 import Results from "./Results"
 import DailyPuzzle from "./DailyPuzzle"
-import { fetchPlayers } from '../services/searchService'
+import { fetchPlayerById, fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
 import { SignIn, SignOut } from './Auth'
-import { addFavoritePlayer, removeFavoritePlayer, getFavoritePlayers } from "../services/favoritesService";
-
 
 
 export default function App() {
@@ -18,43 +16,39 @@ export default function App() {
   const user = useAuthentication()
 
   useEffect(() => {
-    if (searchTerm) {
-      fetchPlayers(encodeURIComponent(searchTerm))
-        .then(setPlayers)
-        .catch((err) => console.error("Error fetching players:", err))
-    }
+    setPlayerDetails(null)
+      fetchPlayers(searchTerm).then(setPlayers)
   }, [searchTerm])
+
+  useEffect(() => {
+    fetchPlayerById(playerId).then(setPlayerDetails)
+  }, [playerId])
 
   return (
     <>
       <h1>Chess App</h1>
       <Search setter={setSearchTerm} />
+      {playerDetails ? (
+        <div>
+          <h2>{playerDetails.username}</h2>
+          <p>
+            {playerDetails.rank},{playerDetails.league}
+          </p>
+          <img src={playerDetails.avatar} alt={playerDetails.username}/>
+          <p>{playerDetails.location}</p>
+        </div>
+      ) : (
 
       <Results 
         players={players} 
-        onAddFavorite={handleAddFavorite} 
-        favorites={favorites} 
-        onRemoveFavorite={handleRemoveFavorite} 
+        action={setPlayerId}
       />
+      )}
 
       <div className="App">
         <header>
           {!user ? <SignIn /> : <SignOut />}
         </header>
-
-        {user && (
-          <>
-            <h2>Your Favorites</h2>
-            <ul>
-              {favorites.map((favorite) => (
-                <li key={favorite.id}>
-                  {favorite.name} - {favorite.rank}
-                  <button onClick={() => handleRemoveFavorite(favorite.id)}>Remove</button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
       </div>
     </>
   );
