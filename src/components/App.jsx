@@ -29,24 +29,32 @@ export default function App() {
     <>
       <h1>Chess App</h1>
       <Search setter={setSearchTerm} />
-      {
-        playerDetails ? (
-          <div>
-            <h1>{JSON.stringify(playerDetails,null, 2)}</h1>
-            <h2>{playerDetails.username}</h2>
-            <p>{playerDetails.location}, {playerDetails.status}</p>
-            <img src={playerDetails.avatar} alt={playerDetails.username} />
-            <p>{playerDetails.title}</p>
-          </div>) : (      
-            <Results players={players} action={setPlayers}/>
-          )}
 
-
+      <Results 
+        players={players} 
+        onAddFavorite={handleAddFavorite} 
+        favorites={favorites} 
+        onRemoveFavorite={handleRemoveFavorite} 
+      />
 
       <div className="App">
         <header>
           {!user ? <SignIn /> : <SignOut />}
         </header>
+
+        {user && (
+          <>
+            <h2>Your Favorites</h2>
+            <ul>
+              {favorites.map((favorite) => (
+                <li key={favorite.id}>
+                  {favorite.name} - {favorite.rank}
+                  <button onClick={() => handleRemoveFavorite(favorite.id)}>Remove</button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </>
   );
