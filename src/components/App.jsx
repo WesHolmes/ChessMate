@@ -6,14 +6,15 @@ import DailyPuzzle from "./DailyPuzzle"
 import { fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
 import { SignIn, SignOut } from './Auth'
-import { addFavoritePlayer, removeFavoritePlayer, getFavoritePlayers } from "../services/favorites";
+import { addFavoritePlayer, removeFavoritePlayer, getFavoritePlayers } from "../services/favoritesService";
 
 
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [players, setPlayers] = useState([])
-  const [favorites, setFavorites] = useState([]);
+  const[playerId, setPlayerId] = useState(null)
+  const [playerDetails, setPlayerDetails] = useState(null)
   const user = useAuthentication()
 
   useEffect(() => {
@@ -24,65 +25,28 @@ export default function App() {
     }
   }, [searchTerm])
 
-  useEffect(() => {
-    if (user) {
-      getFavoritePlayers()
-        .then(setFavorites)
-        .catch((err) => console.error("Error fetching favorites:", err))
-    } else {
-      setFavorites([])
-    }
-  }, [user])
-
-  const handleAddFavorite = (player) => {
-    const playerId = player.id;
-    const playerData = { name: player.name, rank: player.rank };
-
-    addFavoritePlayer(playerId, playerData)
-      .then(() => {
-        setFavorites((prev) => [...prev, { id: playerId, ...playerData }])
-      })
-      .catch((err) => console.error("Error adding favorite:", err))
-  }
-
-  const handleRemoveFavorite = (playerId) => {
-    removeFavoritePlayer(playerId)
-      .then(() => {
-        setFavorites((prev) => prev.filter((item) => item.id !== playerId))
-      })
-      .catch((err) => console.error("Error removing favorite:", err))
-  }
-
   return (
     <>
       <h1>Chess App</h1>
       <Search setter={setSearchTerm} />
+      {
+        playerDetails ? (
+          <div>
+            <h1>{JSON.stringify(playerDetails,null, 2)}</h1>
+            <h2>{playerDetails.username}</h2>
+            <p>{playerDetails.location}, {playerDetails.status}</p>
+            <img src={playerDetails.avatar} alt={playerDetails.username} />
+            <p>{playerDetails.title}</p>
+          </div>) : (      
+            <Results players={players} action={setPlayers}/>
+          )}
 
-      <Results 
-        players={players} 
-        onAddFavorite={handleAddFavorite} 
-        favorites={favorites} 
-        onRemoveFavorite={handleRemoveFavorite} 
-      />
+
 
       <div className="App">
         <header>
           {!user ? <SignIn /> : <SignOut />}
         </header>
-
-        {user && (
-          <>
-            <h2>Your Favorites</h2>
-            <ul>
-              {favorites.map((favorite) => (
-                <li key={favorite.id}>
-                  {favorite.name} - {favorite.rank}
-                  <button onClick={() => handleRemoveFavorite(favorite.id)}>Remove</button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
       </div>
     </>
   );
