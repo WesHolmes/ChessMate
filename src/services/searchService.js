@@ -11,7 +11,7 @@ export async function fetchPlayerById(id) {
         return null
     }
     id = encodeURIComponent(id)
-    return fetch(`https://api.chess.com/pub/player/${username}`)
+    return fetch(`https://api.chess.com/pub/player/${username}/stats`)
     .then((response) => response.json)
     .then((data) => {
         return data.stats?.[0]
