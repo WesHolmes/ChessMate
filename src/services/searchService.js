@@ -1,21 +1,27 @@
-export async function fetchPlayers(query) {
-    return fetch(`https://api.chess.com/pub/player/${query}`)
-        .then((response) => response.json())
-        .then((data) => {
-            return data.stats
+export async function fetchPlayers(username) {
+    username = encodeURIComponent(username)
+    return fetch(`https://api.chess.com/pub/player/${username}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Player not found")
+            }
+            return response.json()
         })
+        .then((data) => data)
 }
 
-export async function fetchPlayerById(id) {
-    if (!id) {
+export async function fetchPlayerById(username) {
+    if (!username) {
         return null
     }
-    id = encodeURIComponent(id)
+    username = encodeURIComponent(username)
     return fetch(`https://api.chess.com/pub/player/${username}/stats`)
-    .then((response) => response.json)
-    .then((data) => {
-        return data.stats?.[0]
-})
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Stats not found")
+        }
+        return response.json()
+    })
 }
 
 export async function fetchDailyPuzzle() {
