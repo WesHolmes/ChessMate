@@ -38,8 +38,12 @@ export default function App() {
 
       <div className="App">
         <header>
-        <h1>ChessMate</h1>
-        <h2>A Chess.com data site</h2>
+          <div className="header-title">
+            <h1>ChessMate</h1>
+            <h2>
+              A <a href="https://www.chess.com" target="_blank" rel="noopener noreferrer">Chess.com</a> data site
+            </h2>
+          </div>
           {!user ? <SignIn /> : <SignOut />}
         </header>
       </div>
