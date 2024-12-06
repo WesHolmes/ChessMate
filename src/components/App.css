@@ -88,6 +88,11 @@ header h1 {
   text-align: center;
 }
 
+header h2 {
+  font-size: 1rem;
+  text-align: left;
+}
+
 header p {
   margin: 1rem 0;
   font-size: 1rem;

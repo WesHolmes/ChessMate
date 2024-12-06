@@ -57,6 +57,7 @@ export default function App() {
     <div className="App">
       <header>
         <h1>ChessMate</h1>
+        <h2>A Chess.com data site</h2>
         {!user ? <SignIn /> : <SignOut />}
       </header>
 
