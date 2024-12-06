@@ -2,13 +2,17 @@ export default function PlayerDetails({ playerData, playerName, blitzRating, bul
     if (!playerData) {
       return null;
     }
+    const country = playerData.country.split("/").pop()
+    
+
+
   
     return (
       <div>
         <h2>{playerName}</h2>
         <img src={playerData.avatar} alt={playerData.username} className="avatar" />
         <p>Title: {playerData.title || "No title"}</p>
-        <p>Country: {playerData.country || "Not provided"}</p>
+        <p>Country: {country || "Not provided"}</p>
         <p>Location: {playerData.location || "Not provided"}</p>
         <p>Blitz Rating: {blitzRating}</p>
         <p>Bullet Rating: {bulletRating}</p>

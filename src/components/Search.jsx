@@ -15,6 +15,8 @@ export default function Search({ setter }) {
     try {
       const player = await fetchPlayers(username);
       setPlayerData(player);
+      const fullURL = player.url;
+      setPlayerName(fullURL.split("/").pop());
       const stats = await fetchPlayerById(username);
       setBlitzRating(stats?.chess_blitz?.last?.rating || "N/A");
       setBulletRating(stats?.chess_bullet?.last?.rating || "N/A");
@@ -56,6 +58,7 @@ export default function Search({ setter }) {
 
       {playerData && (
                 <PlayerDetails
+                    playerName={playerName}
                     playerData={playerData}
                     blitzRating={blitzRating}
                     bulletRating={bulletRating}

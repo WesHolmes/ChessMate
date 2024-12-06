@@ -29,7 +29,6 @@ export default function App() {
 
   return (
     <>
-      <h1>Chess App</h1>
       <Search setter={setSearchTerm} />
       {playerDetails ? (
         <Details details={playerDetails} />
@@ -39,6 +38,7 @@ export default function App() {
 
       <div className="App">
         <header>
+        <h1>Chess App</h1>
         <h2>A Chess.com data site</h2>
           {!user ? <SignIn /> : <SignOut />}
         </header>
