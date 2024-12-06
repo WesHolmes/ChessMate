@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import Search from "./Search"
 import Results from "./Results"
+import Details from "./Details"
 import DailyPuzzle from "./DailyPuzzle"
 import { fetchPlayerById, fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
@@ -24,25 +25,16 @@ export default function App() {
     fetchPlayerById(playerId).then(setPlayerDetails)
   }, [playerId])
 
+
+
   return (
     <>
       <h1>Chess App</h1>
       <Search setter={setSearchTerm} />
       {playerDetails ? (
-        <div>
-          <h2>{playerDetails.username}</h2>
-          <p>
-            {playerDetails.rank},{playerDetails.league}
-          </p>
-          <img src={playerDetails.avatar} alt={playerDetails.username}/>
-          <p>{playerDetails.location}</p>
-        </div>
+        <Details details={playerDetails} />
       ) : (
-
-      <Results 
-        players={players} 
-        action={setPlayerId}
-      />
+        <Results players={players} action={setPlayerDetails}/>
       )}
 
       <div className="App">

@@ -17,3 +17,11 @@ export async function fetchPlayerById(id) {
         return data.stats?.[0]
 })
 }
+
+export async function fetchDailyPuzzle() {
+    const response = await fetch("https://api.chess.com/pub/puzzle");
+    if (response.ok) {
+      return await response.json();
+    }
+    throw Error("Error fetching daily puzzle");
+  }
