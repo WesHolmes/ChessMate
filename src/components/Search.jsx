@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Details from "../services/Details";
+import PlayerDetails from "./Details";
 import DailyPuzzle from "./DailyPuzzle";
 import { fetchPlayers, fetchPlayerById } from "../services/searchService";
 
@@ -57,7 +57,7 @@ export default function Search({ setter }) {
       {error && <p className="error-message">{error}</p>}
 
       {playerData && (
-                <Details
+                <PlayerDetails
                     playerName={playerName}
                     playerData={playerData}
                     blitzRating={blitzRating}
