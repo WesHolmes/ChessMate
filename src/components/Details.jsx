@@ -1,4 +1,13 @@
-export default function PlayerDetails({ playerData, playerName, blitzRating, bulletRating }) {
+import {login} from "../services/authService"
+import { saveFavorite } from "../services/favoritesService";
+
+
+
+export default function PlayerDetails({ user, playerData, playerName, blitzRating, bulletRating }) {
+  function save() {
+    saveFavorite(details.username)
+
+  }
   if (!playerData) {
     return null;
   }
@@ -16,6 +25,7 @@ export default function PlayerDetails({ playerData, playerName, blitzRating, bul
       <p>Location: {playerData.location || "Not provided"}</p>
       <p>Blitz Rating: {blitzRating}</p>
       <p>Bullet Rating: {bulletRating}</p>
+      {user ? <button onClick={() => {save}}>Save</button> : <button onClick={login}>Login to save</button>}
     </div>
   );
 }
