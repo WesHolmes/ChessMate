@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import Search from "./Search"
 import Results from "./Results"
-import Details from "./Details"
+import Details from "../services/Details"
 import DailyPuzzle from "./DailyPuzzle"
 import { fetchPlayerById, fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
@@ -31,7 +31,7 @@ export default function App() {
     <>
       <Search setter={setSearchTerm} />
       {playerDetails ? (
-        <Details details={playerDetails} />
+        <Details user ={user} details={playerDetails} />
       ) : (
         <Results players={players} action={setPlayerDetails}/>
       )}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Details from "./Details";
+import Details from "../services/Details";
 import DailyPuzzle from "./DailyPuzzle";
 import { fetchPlayers, fetchPlayerById } from "../services/searchService";
 

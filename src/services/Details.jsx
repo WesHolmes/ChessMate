@@ -1,5 +1,5 @@
-import { login } from "../services/authService"
-import { addFavorite } from "../services/favoritesService"
+import { login } from "./authService"
+import { addFavorite } from "./favoritesService"
 
 export default function Details({ user, details }) {
   return (
@@ -12,7 +12,10 @@ export default function Details({ user, details }) {
         </p>
         <img src={playerDetails.avatar} alt={playerDetails.username}/>
         <p>{playerDetails.location}</p>
-        {user ? <button onClick={() => addFavorite(details.username)}>Save</button> : <p onClick={login}>login to save</p>}
+        {user ? (<button onClick={() => addFavorite(details.username)}>Save</button> 
+        ) : (
+        <p onClick={login}>login to save</p>
+        )}
       </div>
       )}
     </section>
