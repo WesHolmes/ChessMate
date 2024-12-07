@@ -1,23 +1,22 @@
-export default function PlayerDetails({ playerData, playerName, blitzRating, bulletRating }) {
-    if (!playerData) {
-      return null;
-    }
-    const country = playerData.country.split("/").pop()
-    
+import { login } from "../services/authService"
+import { addFavorite } from "../services/favoritesService"
 
-
-  
-    return (
+export default function Details({ user, details }) {
+  return (
+    <section id="Details">
+      {details && (
       <div>
-        <h2>{playerName}</h2>
-        <img src={playerData.avatar} alt={playerData.username} className="avatar" />
-        <p>Title: {playerData.title || "No title"}</p>
-        <p>Country: {country || "Not provided"}</p>
-        <p>Location: {playerData.location || "Not provided"}</p>
-        <p>Blitz Rating: {blitzRating}</p>
-        <p>Bullet Rating: {bulletRating}</p>
+      <h2>{playerDetails.username}</h2>
+      <p>
+        {playerDetails.rank},{playerDetails.league}
+        </p>
+        <img src={playerDetails.avatar} alt={playerDetails.username}/>
+        <p>{playerDetails.location}</p>
+        {user ? <button onClick={() => addFavorite(details.username)}>Save</button> : <p onClick={login}>login to save</p>}
       </div>
-    );
+      )}
+    </section>
+    )
   }
   
 //     return (
