@@ -7,6 +7,7 @@ import DailyPuzzle from "./DailyPuzzle"
 import { fetchPlayerById, fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
 import { SignIn, SignOut } from './Auth'
+import { getMyFavorites } from '../services/favoritesService'
 
 
 export default function App() {
@@ -25,11 +26,18 @@ export default function App() {
     fetchPlayerById(playerId).then(setPlayerDetails)
   }, [playerId])
 
+  function showFavorites() {
+    setSearchTerm("")
+    setRecipeId(null)
+    getMyFavorites("", true).then(setRecipes)
+  }
+
 
 
   return (
     <>
       <Search setter={setSearchTerm} />
+      <button onClick={showFavorites} >see favorites</button>
       {playerDetails ? (
         <Details details={playerDetails} />
       ) : (
