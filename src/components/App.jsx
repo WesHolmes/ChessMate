@@ -29,7 +29,7 @@ export default function App() {
   function showFavorites() {
     setSearchTerm("")
     setPlayerId(null)
-    getMyFavorites("", true).then(setRecipes)
+    getMyFavorites("", true).then(setPlayers)
   }
 
 
