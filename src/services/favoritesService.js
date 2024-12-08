@@ -3,8 +3,13 @@ import { doc, orderBy, setDoc, getDocs, query, collection, limit, where } from "
 import { loggedInUserId } from "./authService"
 
 export async function getMyFavorites() {
+  const userId = loggedInUserId()
+  if (!userId) {
+    throw new Error("user is not authenticated")
+  }
   const snapshot = await getDocs(
-    query(collection(db, "favorites"), where('username', '==', loggedInUserId()), orderBy("playerId"), limit(20))
+
+    query(collection(db, "favorites"), where('userId', '==', userId), orderBy("playerId"), limit(20))
   )
   return snapshot.docs.map((doc) => ({
     ...doc.data(),
@@ -23,6 +28,6 @@ export async function saveFavorite(playerId) {
   })
 
   console.log("favorite saved", result)
-  return True
+  return true
   
 }
