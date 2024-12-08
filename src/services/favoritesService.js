@@ -4,7 +4,7 @@ import { loggedInUserId } from "./authService"
 
 export async function getMyFavorites() {
   const snapshot = await getDocs(
-    query(collection(db, "favorites"), where('username', '==', loggedInUserId), orderBy("playerId"), limit(20))
+    query(collection(db, "favorites"), where('username', '==', loggedInUserId()), orderBy("playerId"), limit(20))
   )
   return snapshot.docs.map((doc) => ({
     ...doc.data(),

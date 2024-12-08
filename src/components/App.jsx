@@ -39,7 +39,7 @@ export default function App() {
       <Search setter={setSearchTerm} />
       <button onClick={showFavorites} >see favorites</button>
       {playerDetails ? (
-        <Details details={playerDetails} />
+        <Details user={user} details={playerDetails} />
       ) : (
         <Results players={players} action={setPlayerDetails}/>
       )}
