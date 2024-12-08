@@ -28,7 +28,7 @@ export default function App() {
 
   function showFavorites() {
     setSearchTerm("")
-    setRecipeId(null)
+    setPlayerId(null)
     getMyFavorites("", true).then(setRecipes)
   }
 
