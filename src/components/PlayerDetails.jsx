@@ -2,12 +2,7 @@ import { useState } from "react";
 import {login} from "../services/authService"
 import { saveFavorite } from "../services/favoritesService";
 
-
-
 export default function PlayerDetails({ user, playerData, playerName, blitzRating, bulletRating }) {
-
-
-  
 
   const [saving,setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -20,6 +15,7 @@ export default function PlayerDetails({ user, playerData, playerName, blitzRatin
     setSaved(true)
   }
 
+  console.log(user)
   return (
     <div>
       <h2>{playerName}</h2>

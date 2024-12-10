@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import PlayerDetails from "./Details";
+import PlayerDetails from "./PlayerDetails";
 import DailyPuzzle from "./DailyPuzzle";
 import { fetchPlayers, fetchPlayerById } from "../services/searchService";
 
-export default function Search({ setter }) {
+export default function Search({ user, setter }) {
   const [term, setTerm] = useState("");
   const [playerData, setPlayerData] = useState(null);
   const [playerName, setPlayerName] = useState(null);
@@ -58,6 +58,7 @@ export default function Search({ setter }) {
 
       {playerData && (
                 <PlayerDetails
+                    user={user}
                     playerName={playerName}
                     playerData={playerData}
                     blitzRating={blitzRating}
