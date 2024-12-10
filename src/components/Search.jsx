@@ -44,7 +44,7 @@ export default function Search({ user, setter }) {
     <div className="search-component">
       <DailyPuzzle />
 
-      <form onSubmit={submit}>
+      <form onSubmit={submit} className="searchForm">
         <input
           type="text"
           placeholder="Search Player..."

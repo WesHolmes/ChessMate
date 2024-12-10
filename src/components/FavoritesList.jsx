@@ -4,13 +4,14 @@ export default function FavoritesList({ favorites }) {
       {!favorites
         ? "no favorites"
         : favorites.map((f) => (
-            <p key={f.playerData.username}>
-              [{f.playerData.username}] {f.playerData.name}{" "}
-              {f.playerData.is_streamer
-                ? " is a streamer"
-                : " is not a streamer"}
+            <p key={f.playerData.username} className="favoriteList">
+              <img src={f.playerData.avatar || "/default-avatar.png"}
+              className="avatarSmall"
+              />
+              <span className="favoriteUsername">[{f.playerData.username}]</span>{" - "}
+              {f.playerData.name || "Name not given"}{" "}
             </p>
           ))}
     </nav>
-  );
+  );  
 }

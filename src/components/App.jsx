@@ -37,7 +37,7 @@ export default function App() {
   return (
     <>
       <Search user={user} setter={setSearchTerm} />
-      <button onClick={showFavorites}>see favorites</button>
+      <button onClick={showFavorites} className="favoritesButton">See Favorites</button>
       {playerDetails ? (
         <PlayerDetails user={user} details={playerDetails} />
       ) : favorites ? (
