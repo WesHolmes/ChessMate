@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import Search from "./Search"
 import Results from "./Results"
-import Details from "./Details"
+import PlayerDetails from "./PlayerDetails"
 import DailyPuzzle from "./DailyPuzzle"
 import { fetchPlayerById, fetchPlayers } from '../services/searchService'
 import { useAuthentication } from '../services/authService'
@@ -32,14 +32,12 @@ export default function App() {
     getMyFavorites("", true).then(setPlayers)
   }
 
-
-
   return (
     <>
-      <Search setter={setSearchTerm} />
+      <Search user={user} setter={setSearchTerm} />
       <button onClick={showFavorites} >see favorites</button>
       {playerDetails ? (
-        <Details user={user} details={playerDetails} />
+        <PlayerDetails user={user} details={playerDetails} />
       ) : (
         <Results players={players} action={setPlayerDetails}/>
       )}
