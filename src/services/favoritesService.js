@@ -18,16 +18,15 @@ export async function getMyFavorites() {
   }))
 }
 
-export async function saveFavorite(playerId) {
-
+export async function saveFavorite(playerData) {
   const userId = loggedInUserId()
+  console.log(playerData)
+  console.log(playerData.username)
 
-  const result = await setDoc(doc(db, "favorites", `${playerId}.${userId}`), {
-    playerId, 
-    userId, 
-  })
+  const result = await setDoc(doc(db, "favorites", `${playerData.playerData.username}:${userId}`), 
+    playerData,  
+  )
 
   console.log("favorite saved", result)
   return true
-  
 }

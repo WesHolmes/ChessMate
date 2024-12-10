@@ -10,9 +10,15 @@ export default function PlayerDetails({ user, playerData, playerName, blitzRatin
   
   async function save() {
     setSaving(true)
-    await saveFavorite(details.username)
+    await saveFavorite({playerData})
     setSaving(false)
     setSaved(true)
+    setTimeout(reset, 3000)
+  }
+
+  function reset() {
+    setSaved(false)
+    setSaving(false)
   }
 
   console.log(user)
